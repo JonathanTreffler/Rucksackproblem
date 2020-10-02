@@ -14,7 +14,7 @@
       <md-app-content>
         <md-field>
           <label>Single</label>
-          <md-file v-model="file" />
+          <md-file @md-change="fileSelected" />
         </md-field>
       </md-app-content>
     </md-app>
@@ -40,11 +40,15 @@
 <script>
 export default {
   data: () => ({
-    file: null,
+    inputFile: "",
+    n: false,
+    capacity: false,
   }),
-  computed: {
-    inputString() {
-      /*let file = this.file[0];
+  methods: {
+    fileSelected(event) {
+      console.log("test");
+      console.log(event);
+      let file = event[0];
 
       let reader = new FileReader();
 
@@ -52,8 +56,23 @@ export default {
 
       reader.onload = function() {
         console.log(reader.result);
+        this.inputFile = reader.result;
+
+        let parsed = reader.result.split("\n");
+
+        for(let line in parsed) {
+           parsed[line] = parsed[line].split(" ");
+        }
+
+        console.log(parsed);
+
+        this.n = parsed[0][0];
+        this.capacity = parsed[0][1];
+
+        for(let item in parsed.slice(1, parsed.length)) {
+          console.log(parsed[item]);
+        }
       };
-      return false;*/
     }
   }
 }
